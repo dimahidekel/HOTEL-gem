@@ -1,0 +1,6 @@
+{
+  "name": "HOTEL WORK DEV — Hotel Investment Underwriting Platform",
+  "description": "Institutional hotel acquisition underwriting, financial analytics, evidence QA, and investment committee workspace using synthetic deal data.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
