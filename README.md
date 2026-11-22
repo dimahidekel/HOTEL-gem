@@ -18,3 +18,4 @@ View your app in AI Studio: https://ai.studio/apps/357ca489-b96e-4e9b-8594-1444a
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+# HOTEL-gem
