@@ -1,5 +1,7 @@
 """Dependency-free runtime regression of financials and synthetic PIP updates."""
 import pathlib
+import os
+import shutil
 import subprocess
 import unittest
 
@@ -11,10 +13,13 @@ class RuntimeRegression(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         BUILD.mkdir(exist_ok=True)
+        (BUILD / 'package.json').write_text('{"type":"commonjs"}')
+        compiler = pathlib.Path(os.environ.get('TSC_SCRIPT', ROOT / 'node_modules/typescript/bin/tsc'))
+        command = [shutil.which('node'), str(compiler)] if compiler.is_file() else [shutil.which('tsc') or 'tsc']
         subprocess.run([
-            'tsc', 'src/utils/financials.ts', 'src/utils/pipAdjustments.ts',
+            *command, 'src/utils/financials.ts', 'src/utils/pipAdjustments.ts',
             'src/data/syntheticDeals.ts', 'src/types/underwriting.ts',
-            '--target', 'ES2022', '--module', 'commonjs', '--skipLibCheck',
+            '--ignoreConfig', '--target', 'ES2022', '--module', 'commonjs', '--skipLibCheck',
             '--outDir', str(BUILD), '--pretty', 'false',
         ], cwd=ROOT, check=True, capture_output=True, text=True)
 

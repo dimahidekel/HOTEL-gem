@@ -5,3 +5,7 @@ dist/
 *.log
 .aistudio/
 .qa_render_tmp/
+.qa_tools/
+.qa_stage3/
+__pycache__/
+.env.*
