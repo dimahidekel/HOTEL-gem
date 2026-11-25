@@ -109,5 +109,3 @@ $('returned').onchange=()=>act(async()=>{
   await save(); render(); displayRun(updated); $('returned').value=''; message('PDF attached for preview. Its QA and source binding have not been verified.');
 });
 render();
-
-
