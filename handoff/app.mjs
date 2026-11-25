@@ -64,11 +64,13 @@ async function act(fn) {
   if (busy) return;
   busy = true;
   const controls = [...document.querySelectorAll('button,input,select,textarea')]; controls.forEach(c=>c.disabled=true);
-  const before = structuredClone(deals), activeId = active?.id;
+  const before = structuredClone(deals), activeId = active?.id, selectedRunId = selectedRun?.id;
   try { await fn(); } catch(error) {
     deals=before;
     if (error.message.includes('another tab')) deals=await records('readonly',store=>store.getAll());
-    active=deals.find(d=>d.id===activeId); render(); message(error.message);
+    active=deals.find(d=>d.id===activeId); render();
+    if(selectedRunId) displayRun(active?.runs.find(r=>r.id===selectedRunId));
+    message(error.message);
   } finally { busy=false; controls.forEach(c=>c.disabled=false); }
 }
 $('new-deal').onsubmit = event => {event.preventDefault(); act(async()=>{
@@ -78,7 +80,7 @@ $('new-deal').onsubmit = event => {event.preventDefault(); act(async()=>{
 $('deals').onchange = ()=>act(async()=>{
   const id=$('deals').value; deals=await records('readonly',store=>store.getAll()); active=deals.find(d=>d.id===id); render(); message('');
 });
-$('save-text').onclick=()=>act(async()=>{active.text=$('text').value; await save(); message('Original text saved.');});
+$('save-text').onclick=()=>act(async()=>{active.text=$('text').value; await save(); drafts.delete(active.id); message('Original text saved.');});
 $('files').onchange=()=>act(async()=>{
   const pending=[...$('files').files]; pending.forEach(validateFile);
   if (active.files.length+pending.length>MAX_FILES || active.files.reduce((sum,f)=>sum+f.size,0)+pending.reduce((sum,f)=>sum+f.size,0)>MAX_TOTAL_BYTES) throw new Error('Limit: 500 files and 2 GiB total per deal. No files were transferred; reduce this batch before retrying.');
@@ -90,7 +92,7 @@ $('files').onchange=()=>act(async()=>{
   await save(); $('files').value=''; render(); message('Files preserved locally. No extraction or Drive upload has run.');
 });
 for (const [id,type] of [['es','ES'],['ic','FULL_IC']]) $(id).onclick=()=>act(async()=>{
-  active.text=$('text').value; const run=await prepareRun(active,type); active.runs.push(run); await save(); render();
+  active.text=$('text').value; const run=await prepareRun(active,type); active.runs.push(run); await save(); drafts.delete(active.id); render();
   message('Request prepared. Download the bundle and send it in your HOTEL WORK chat.');
 });
 $('bundle').onclick=()=>act(async()=>{

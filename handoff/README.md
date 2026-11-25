@@ -32,3 +32,7 @@ See [architecture audit](../docs/ARCHITECTURE_AUDIT.md) and [verification result
 ## Multipart transfer update
 
 The current interface retains the original navy sidebar and teal controls with a simplified deal workspace. Source intake supports PDF, legacy/current Word, Excel (including XLSM preserved without macro execution), PowerPoint, text/CSV/RTF, OpenDocument and ZIP. Limits are 500 files, 100 MiB/file and 2 GiB/deal, subject to browser quota. Exports use independently downloadable numbered ZIP packages, at most 100 MiB of source payload each plus metadata (110 MiB hard archive cap). Each package carries the complete transfer.json inventory, frozen request, original filenames, safe archive paths, sizes and SHA-256. All packages must be collected and verified before claiming complete analysis. Files remain intact. Files above 100 MiB use the canonical Drive folder route; receiving ChatGPT upload limits are separate and unverified. No automatic transmission takes place.
+
+## Published private version
+
+[Open the private Deal Desk](https://hotel-work-deal-desk.hidekel-5388.chatgpt.site). Sign in with the owning ChatGPT account. Browser-local data belongs to this exact website address; it is separate from localhost. No documents were automatically migrated or uploaded during deployment. See docs/VERIFICATION.md for the deployed identity and tested/untested boundaries. The deployment uses a separate Sites source repository containing only static app code and its hosting manifest.
