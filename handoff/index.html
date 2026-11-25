@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; frame-src blob:; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<title>HOTEL WORK · Deal desk</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="shell">
+<aside class="sidebar"><div class="brand"><strong>HOTEL WORK</strong><span>Deal desk</span></div>
+<div class="sidebar-content"><h2>Your deals</h2><label for="deals">Select deal</label><select id="deals"></select>
+<details class="new-deal"><summary>+ New deal</summary><form id="new-deal"><label for="name">Deal name</label><input id="name" maxlength="140" required placeholder="Hotel or project name"><label for="new-folder">Google Drive deal folder <span>(optional)</span></label><input id="new-folder" type="url" placeholder="https://drive.google.com/drive/folders/…"><button>Create deal</button></form></details>
+<details class="storage"><summary>About your data</summary><p>Deals and files are saved in this browser. Download the request bundle for a portable copy. The website does not upload files to Drive.</p><p>Up to 500 files, 100 MiB per file and 2 GiB per deal. Large transfers use multiple packages.</p></details></div></aside>
+<div class="content"><header class="topbar"><span>Deal workspace</span><span class="badge">Assisted ChatGPT handoff</span></header>
+<section class="workspace"><div class="intro"><p class="eyebrow">DEAL DESK</p><h1 id="title">Start with a deal.</h1><p>Prepare your sources, then continue in your HOTEL WORK chat.</p></div>
+<p id="message" role="status" aria-live="polite"></p><div id="workspace" hidden>
+<article class="report-card"><div><h2>Prepare a report request</h2><p>Choose a report to prepare its handoff for ChatGPT.</p></div><div class="actions"><button id="es">Generate ES</button><button id="ic">Generate Full IC</button></div></article>
+<article><div class="card-heading"><div><h2>Source documents</h2><p>Add the documents and notes for this deal.</p></div></div><label class="upload" for="files">Add documents<input id="files" type="file" multiple accept=".pdf,.xlsx,.xls,.xlsm,.docx,.doc,.pptx,.ppt,.txt,.csv,.rtf,.odt,.ods,.odp,.zip"></label><p class="quiet">PDF, Word, Excel, PowerPoint, text or ZIP · 100 MiB per file · 2 GiB per deal</p><ul id="sources"></ul>
+<label for="text">Deal notes or source text</label><textarea id="text" rows="5" maxlength="200000" placeholder="Paste source text or deal notes."></textarea><button id="save-text" class="secondary">Save text</button></article>
+<article id="handoff" hidden><h2>Continue in ChatGPT</h2><p id="progress"></p><ol><li>Download the request bundle.</li><li>Open your HOTEL WORK chat, attach the bundle, paste the request and send it.</li><li>Follow the checkpoints in ChatGPT and save the deliverables to the deal folder.</li></ol>
+<div class="actions"><button id="bundle">Prepare download packages</button><a class="button secondary" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Open ChatGPT</a></div><div id="packages" class="actions"></div><label for="prompt">Request to send</label><textarea id="prompt" rows="6" readonly></textarea><button id="copy" class="secondary">Copy request</button>
+<div class="returned"><h3>Returned document</h3><label for="returned">Attach the PDF returned by ChatGPT</label><input id="returned" type="file" accept=".pdf"><p class="quiet">An attachment is not verified for provenance or QA. Full IC also requires the matching XLSX in ChatGPT.</p><div id="result" hidden><a id="download" class="button" download>Download PDF</a><p class="quiet">If the preview is blank, download the PDF to view it.</p><iframe id="preview" title="Returned PDF preview"></iframe></div></div></article>
+<details class="history"><summary>Previous requests</summary><ul id="history"></ul></details>
+</div></section><footer>Reports follow the current HOTEL WORK Master in Google Drive. This desk prepares handoffs; it does not certify reports.</footer></div></main><script type="module" src="app.mjs"></script></body></html>
+
+
+
